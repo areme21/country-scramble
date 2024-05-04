@@ -281,7 +281,9 @@ function CountryScramble({ goToMessage }) {
         <h1>Country Scramble</h1>
         </div>
         <div >
-        <Button style={{ width: '200px', height: '100px',fontSize: '20px', fontWeight: 'bold', backgroundColor: 'orange', padding: '8px', cursor: 'grab', bottom: 0, right: 0, position: 'fixed' }} onClick={() => goToMessage()}>Go Back to Message</Button>
+        {!gameStarted &&
+            <Button style={{ width: '200px', height: '100px',fontSize: '20px', fontWeight: 'bold', backgroundColor: 'orange', padding: '8px', cursor: 'grab', bottom: 0, right: 0, position: 'fixed' }} onClick={() => goToMessage()}>Go Back to Message</Button>
+        }
         </div>
         <div className="high-score">
             High Score: {highScore}
