@@ -147,7 +147,19 @@ function CountryScramble({ goToMessage }) {
             }, 1000);
             return () => clearTimeout(countdown);
         } else if (timer === 0) {
-            setLostGame(true);
+            if (bonuses > 0) {
+                const countryCode = getRandomCountryCode();
+                setLostGame(false);
+                setBonuses(bonuses - 1);
+                setFlagQuestion({ code: countryCode });
+                const randomFlags = getRandomFlags(countryCode);
+                randomFlags.push(countryCode)
+                const flags = shuffle(randomFlags);
+                setFlagOptions(flags);
+            }
+            else {
+                setLostGame(true);
+            }
         }
     }, [gameStarted, lostGame, timer]);
     useEffect(() => {
@@ -273,7 +285,7 @@ function CountryScramble({ goToMessage }) {
         }
     };
 
-    console.log(possibleAnswers(letters));
+    // console.log(possibleAnswers(letters));
 
     return (
         <div>
