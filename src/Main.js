@@ -5,11 +5,12 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import countriesData from './countries.json';
 import shuffle from 'lodash/shuffle';
 import { password, welcomeMessage, welcomeMessageHeader, welcomeMessageFooter } from "./private/Password";
+import soundFile from './mananitas.mp3'
 
 // gets harder as you go... either less countries as possible answers, less time, more letters
 // maybe start with 2 letters, then 3 
 
-const countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", 
+const countries = ["Afghanistan", "Albania", "Algeria", "America", "Andorra", "Angola", 
 "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
 "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", 
 "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", 
@@ -22,7 +23,7 @@ const countries = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
 "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", 
 "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", 
 "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", 
-"Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan",
+"Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea", "Kosovo", "Kuwait", "Kyrgyzstan",
 "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", 
 "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", 
 "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", 
@@ -86,7 +87,8 @@ const isAnswerCorrect = (letters, answer) => {
     return countries_lower.includes(answer.toLowerCase()) && 
     possibleAnswers(letters).includes(answer.toLowerCase());
 }
-const generateLetters = (numLetters) => {
+const generateLetters = () => {
+    const numLetters = Math.random() < 0.5 ? 2 : 3;
     let letters = 'abcdefghijklmnopqrstuvwxyz';
     let generatedLetters = [];
     for (let i = 0; i < numLetters; i++) {
@@ -99,7 +101,7 @@ const generateLetters = (numLetters) => {
         return generatedLetters;
     }
     else {
-        return generateLetters(numLetters)
+        return generateLetters()
     }
 }
 
@@ -135,7 +137,7 @@ function CountryScramble({ goToMessage }) {
         return randomFlags;
     };
     useEffect(() => {
-        const generatedLetters = generateLetters(3);
+        const generatedLetters = generateLetters();
         setLetters(generatedLetters);
     }, []); 
     useEffect(() => {
@@ -167,7 +169,7 @@ function CountryScramble({ goToMessage }) {
             const correctCountry = countriesData[flagQuestion.code];
             if (correctCountry === answer) {
                 setScore(score + 10);
-                let generatedLetters = generateLetters(3);
+                let generatedLetters = generateLetters();
                 setLetters(generatedLetters);
                 setAnswer('');
                 setTimer(30);
@@ -186,7 +188,7 @@ function CountryScramble({ goToMessage }) {
             if ((score + 10) % 50 === 0) { 
                 setBonuses(bonuses + 1);
             }
-            let generatedLetters = generateLetters(3);
+            let generatedLetters = generateLetters();
             setLetters(generatedLetters);
             setAnswer('');
             setTimer(30);
@@ -211,7 +213,7 @@ function CountryScramble({ goToMessage }) {
         setGameStarted(true);
         setLostGame(false);
         setAnswer('');
-        let generatedLetters = generateLetters(3);
+        let generatedLetters = generateLetters();
         setLetters(generatedLetters);
         setScore(0);
         setTimer(30);
@@ -233,7 +235,7 @@ function CountryScramble({ goToMessage }) {
     };
     const handleFlagOptionClick = (selectedCountry) => {
         if (selectedCountry === countriesData[flagQuestion.code]) {
-            let generatedLetters = generateLetters(3);
+            let generatedLetters = generateLetters();
             setLetters(generatedLetters);
             setAnswer('');
             setTimer(30);
@@ -270,6 +272,9 @@ function CountryScramble({ goToMessage }) {
             setLostGame(true);
         }
     };
+
+    console.log(possibleAnswers(letters));
+
     return (
         <div>
         <div className="scramble-header">
@@ -364,8 +369,33 @@ export default function Main() {
     const [enteredPass, setEnteredPass] = useState('');
     const [correctPass, setCorrectPass] = useState(false);
     const [showGame, setShowGame] = useState(false);
+    const [sound, setSound] = useState(new Audio(soundFile));
+    const [soundPaused, setSoundPaused] = useState(true);
 
-    // console.log(possibleAnswers(letters));
+    const playSound = () => {
+        sound.play();
+        setSoundPaused(false);
+    };
+
+    const stopSound = () => {
+        sound.pause(); 
+        sound.currentTime = 0;
+        setSoundPaused(true);
+    };
+
+    const handleSoundToggle = () => {
+        if (sound.paused) {
+            playSound();
+        } else {
+            stopSound();
+        }
+    };
+
+    useEffect(() => {
+        return () => {
+            stopSound();
+        };
+    }, []);
 
     const handlePassSubmit = () => {
         if (enteredPass === password) {
@@ -388,9 +418,15 @@ export default function Main() {
 
     if (correctPass && !showGame) {
         return (
-            <div>
-                                <h2>{welcomeMessageHeader}</h2>
-                <div style={{ width: '600px'}}>
+            <div className="message-container">
+                                <Button
+                    style={{ width: '150px', fontSize: '16px', padding: '8px', marginLeft: '10px', cursor: 'grab' }}
+                    onClick={handleSoundToggle}
+                >
+                    {soundPaused ? 'Play Sound' : 'Stop Sound'}
+                </Button>
+                    <h2>{welcomeMessageHeader}</h2>
+                <div >
                 {welcomeMessage}
                 </div>
                 <h2>{welcomeMessageFooter}</h2>
@@ -407,7 +443,7 @@ export default function Main() {
                 placeholder="Enter password"
                 style={{ width: '300px', fontSize: '16px', padding: '8px', marginTop: '10px' }}
             ></input>
-            <Button onClick={handlePassSubmit} style={{ width: '150px', fontSize: '16px', padding: '8px', marginLeft: '10px', cursor: 'grab' }}>Submit Password!</Button>
+            <Button onClick={handlePassSubmit} style={{ width: '150px', fontSize: '16px', padding: '8px', marginLeft: '10px', cursor: 'grab' }}>Submit Password</Button>
         </div>
     );
 };

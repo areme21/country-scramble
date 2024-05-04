@@ -18,6 +18,16 @@
   z-index: 999;
 }
 
+@media only screen and (max-width: 600px) {
+    .scramble-header {
+        padding-top: 30px;
+    }
+    
+    .high-score {
+        top: 40px;
+    }
+}
+
 .high-score {
   position: fixed;
   top: 0;
@@ -40,11 +50,13 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .flag-options .fi {
-  font-size: 40px; 
+  font-size: 60px; 
   cursor: grab;
+  margin-bottom: 10px;
 }
 
 .score-bonus {
@@ -60,4 +72,10 @@
   border-radius: 10px 10px 10px 10px;
   margin-bottom: 10px;
   margin-left: 10px;
+}
+
+.message-container {
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
 }
