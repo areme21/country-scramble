@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/country-scramble/static/css/main.f9be17d8.css",
-    "main.js": "/country-scramble/static/js/main.2d0bf33d.js",
+    "main.js": "/country-scramble/static/js/main.f7c1f6be.js",
     "static/js/453.95ec01bf.chunk.js": "/country-scramble/static/js/453.95ec01bf.chunk.js",
     "static/media/rs.svg": "/country-scramble/static/media/rs.b16c22033ad1a395b009.svg",
     "static/media/sh-ac.svg": "/country-scramble/static/media/sh-ac.2f733db97b52ef32314b.svg",
@@ -276,11 +276,11 @@
     "static/media/pe.svg": "/country-scramble/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/country-scramble/static/media/id.f624e2c8444a7794b357.svg",
     "main.f9be17d8.css.map": "/country-scramble/static/css/main.f9be17d8.css.map",
-    "main.2d0bf33d.js.map": "/country-scramble/static/js/main.2d0bf33d.js.map",
+    "main.f7c1f6be.js.map": "/country-scramble/static/js/main.f7c1f6be.js.map",
     "453.95ec01bf.chunk.js.map": "/country-scramble/static/js/453.95ec01bf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f9be17d8.css",
-    "static/js/main.2d0bf33d.js"
+    "static/js/main.f7c1f6be.js"
   ]
 }
