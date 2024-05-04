@@ -103,7 +103,7 @@ function CountryScramble({ goToMessage }) {
     const filteredCountryCodes = Object.keys(countriesData).filter(code => countries.includes(countriesData[code]));
 
     const generateLetters = () => {
-        const probability = score > 100 ? 0.4 : 0.7;
+        const probability = score > 100 ? 0.2 : 0.6;
         const numLetters = Math.random() < probability ? 2 : 3;
         let letters = 'abcdefghijklmnopqrstuvwxyz';
         let generatedLetters = [];
