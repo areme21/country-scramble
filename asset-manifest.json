@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/country-scramble/static/css/main.fdc7e210.css",
-    "main.js": "/country-scramble/static/js/main.123feae2.js",
+    "main.js": "/country-scramble/static/js/main.cd3b247e.js",
     "static/js/453.95ec01bf.chunk.js": "/country-scramble/static/js/453.95ec01bf.chunk.js",
     "static/media/mananitas.mp3": "/country-scramble/static/media/mananitas.4a1297faf30e395f7ea1.mp3",
     "static/media/rs.svg": "/country-scramble/static/media/rs.b16c22033ad1a395b009.svg",
@@ -277,11 +277,11 @@
     "static/media/pe.svg": "/country-scramble/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/country-scramble/static/media/id.f624e2c8444a7794b357.svg",
     "main.fdc7e210.css.map": "/country-scramble/static/css/main.fdc7e210.css.map",
-    "main.123feae2.js.map": "/country-scramble/static/js/main.123feae2.js.map",
+    "main.cd3b247e.js.map": "/country-scramble/static/js/main.cd3b247e.js.map",
     "453.95ec01bf.chunk.js.map": "/country-scramble/static/js/453.95ec01bf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fdc7e210.css",
-    "static/js/main.123feae2.js"
+    "static/js/main.cd3b247e.js"
   ]
 }
