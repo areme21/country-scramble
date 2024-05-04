@@ -87,23 +87,6 @@ const isAnswerCorrect = (letters, answer) => {
     return countries_lower.includes(answer.toLowerCase()) && 
     possibleAnswers(letters).includes(answer.toLowerCase());
 }
-const generateLetters = () => {
-    const numLetters = Math.random() < 0.5 ? 2 : 3;
-    let letters = 'abcdefghijklmnopqrstuvwxyz';
-    let generatedLetters = [];
-    for (let i = 0; i < numLetters; i++) {
-        let ind = Math.floor(Math.random() * letters.length);
-        // if (!(generatedLetters.includes(letters[ind]))) {
-        generatedLetters.push(letters[ind]);
-        // }
-    }
-    if (numAnswers(generatedLetters) >= 3 && generatedLetters.length === numLetters) {
-        return generatedLetters;
-    }
-    else {
-        return generateLetters()
-    }
-}
 
 
 function CountryScramble({ goToMessage }) {
@@ -118,6 +101,25 @@ function CountryScramble({ goToMessage }) {
     const [flagQuestion, setFlagQuestion] = useState(null);
     const [flagOptions, setFlagOptions] = useState([]);
     const filteredCountryCodes = Object.keys(countriesData).filter(code => countries.includes(countriesData[code]));
+
+    const generateLetters = () => {
+        const probability = score > 100 ? 0.4 : 0.7;
+        const numLetters = Math.random() < probability ? 2 : 3;
+        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let generatedLetters = [];
+        for (let i = 0; i < numLetters; i++) {
+            let ind = Math.floor(Math.random() * letters.length);
+            // if (!(generatedLetters.includes(letters[ind]))) {
+            generatedLetters.push(letters[ind]);
+            // }
+        }
+        if (numAnswers(generatedLetters) >= 4 && generatedLetters.length === numLetters) {
+            return generatedLetters;
+        }
+        else {
+            return generateLetters()
+        }
+    }
 
     const getRandomCountryCode = (correctCountry) => {
         const randomIndex = Math.floor(Math.random() * filteredCountryCodes.length);
